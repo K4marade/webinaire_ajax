@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webinaire Ajax</title>
+    <style>
+        .input--userText {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue sur ma toute nouvelle page</h1>
+
+    <form id="user-text-form">
+        <p>
+            <label for="userText"></label>
+            <input type="text" id="userText" class="input--usertext" name = "userText" placeholder="Ajouter un texte ici">
+            <input type="submit" value="Envoyer">
+        </p>
+    </form>
+
+    <script>
+        let form = document.querySelector("#user-text-form");
+
+        function postFormData(url, data) {
+            return fetch(url, {
+                method: "POST",
+                body: data
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error));
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            //Envoyer le contenu du formulaire au serveur
+            postFormData("/ajax", new FormData(form))
+            .then(response => console.log(response));
+
+        })
+    </script>
+</body>
+</html>
